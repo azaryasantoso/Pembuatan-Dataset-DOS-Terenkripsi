@@ -7,7 +7,11 @@ Before running the project, install Argus:
 ```bash
 sudo apt update
 sudo apt install -y python3-venv argus-server argus-client
+```
 
+go to your working folder and create new venv folder
+
+```bash
 python3 -m venv /home/.../venv
 source /home/.../venv/bin/activate
 pip intall -r requirements.txt
