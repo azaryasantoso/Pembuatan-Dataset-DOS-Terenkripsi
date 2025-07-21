@@ -45,8 +45,6 @@ def process_argus_full_csv(file_path, output_path):
         df = df[1:]
  
     
-    df['StartTime'] = pd.to_datetime(df['StartTime'], format='%H:%M:%S.%f')
-    df['LastTime'] = pd.to_datetime(df['LastTime'], format='%H:%M:%S.%f')
     df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
 
     df = df[df['Dport'] == 443]
@@ -55,10 +53,6 @@ def process_argus_full_csv(file_path, output_path):
     else:
         print(f"Jumlah baris akhir: {len(df)}")
 
-
-    # Tangani durasi nol atau NaN
-    df['Dur'] = df['Dur'].replace(0, 0.000001).fillna(0.000001)
-    df['TotPkts'] = df['TotPkts'].replace(0, 1).fillna(1)
     
     basename = os.path.basename(file_path).lower()
     if 'getbenign' in basename or 'postbenign' in basename:
@@ -104,8 +98,6 @@ def process_argus_full_csv(file_path, output_path):
     else:
         df['tool_used'] = 'unknown'
 
-    df['StartTime'] = df['StartTime'].dt.strftime('%H:%M:%S.%f')
-    df['LastTime'] = df['LastTime'].dt.strftime('%H:%M:%S.%f')
 
 
     df.to_csv(output_path, index=False)
